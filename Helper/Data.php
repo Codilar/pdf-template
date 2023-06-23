@@ -11,7 +11,11 @@ class Data
      */
     public function isValueTruthy($value)
     {
-        return in_array(strtolower($value), $this->getTruthyValues());
+        if ($value) {
+            return in_array(strtolower($value), $this->getTruthyValues());
+        } else {
+            return false;
+        }
     }
 
     /**

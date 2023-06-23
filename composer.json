@@ -3,7 +3,7 @@
     "description": "A module for adding HTML PDF templates to Magento",
     "type": "magento2-module",
     "license": "proprietary",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "salesforce/handlebars-php": "^3.0",
         "dompdf/dompdf": "^2.0"
