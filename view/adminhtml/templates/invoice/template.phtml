@@ -1,0 +1,102 @@
+<?php
+/** @var \Codilar\PdfTemplate\Block\Adminhtml\Invoice\Template $block */
+?>
+<style>
+    #pdf_template-template-engine > .actions {
+        padding: 2rem;
+        margin-bottom: 1rem;
+        position: relative;
+        background: #ddd;
+    }
+    #pdf_template-template-engine > .actions > .store-switcher {
+        float: none;
+        display: inline-block;
+    }
+    #pdf_template-template-engine > .actions > .save {
+        display: inline-block;
+        position: absolute;
+        right: 2rem;
+    }
+    .pdf_template-template-container {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .pdf_template-template-container .column {
+        display: flex;
+        flex-direction: column;
+    }
+    .pdf_template-template-container .template {
+        flex: 1;
+    }
+    .pdf_template-template-container .preview-container {
+        flex: 1.2;
+        margin-left: 1rem;
+        padding: 2rem 0;
+        background: silver;
+    }
+    .pdf_template-template-container .template textarea {
+        width: 100%;
+        height: 100%;
+        font-size: 2rem;
+    }
+    .pdf_template-template-container .preview-container .preview {
+        border: 1px solid #333;
+        margin: auto;
+        background: #fafafa;
+        overflow: auto;
+    }
+</style>
+<script type="application/javascript">
+    require(['jquery'], function ($) {
+        var preview = $('.pdf_template-template-container .preview');
+        var textarea = $('.pdf_template-template-container .template textarea');
+        var availableWidth = $('.pdf_template-template-container .preview-container').width();
+        availableWidth = availableWidth * 2/3;
+        preview.css({
+            width: availableWidth + 'px',
+            height: (1.4 * availableWidth) + 'px'
+        });
+
+        var updater = null;
+        textarea.on('keyup', function () {
+            if (updater) {
+                clearTimeout(updater);
+            }
+            updater = setTimeout(function () {
+                preview.html('Loading...');
+                $.ajax({
+                    url: "<?= $block->getUrl('*/*/render') ?>",
+                    method: "POST",
+                    data: {
+                        raw: textarea.val()
+                    },
+                    success: function (response) {
+                        preview.html(response.rendered_html);
+                    },
+                    error: function (error) {
+                        preview.html(error.responseText);
+                    }
+                })
+            }, 1000);
+        });
+        textarea.trigger('keyup');
+    });
+</script>
+<form method="POST" action="<?= $block->getSubmitUrl() ?>" id="pdf_template-template-engine">
+    <div class="actions">
+        <?= $block->getScopeControl() ?>
+        <button type="submit" class="button action-default primary save"><?= __('Save Template') ?></button>
+    </div>
+    <div class="pdf_template-template-container">
+        <div class="template column">
+            <textarea name="template"><?= $block->getRawTemplateData() ?></textarea>
+        </div>
+        <div class="preview-container column">
+            <div class="preview"></div>
+        </div>
+    </div>
+    <?= $block->getBlockHtml('formkey') ?>
+</form>

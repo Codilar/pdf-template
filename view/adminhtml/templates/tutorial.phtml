@@ -1,0 +1,40 @@
+<?php
+/** @var \Codilar\PdfTemplate\Block\Adminhtml\Tutorial $block */
+?>
+<style>
+    code {
+        font-family: Monaco, monospace;
+        font-size: $base-font-size;
+        line-height: 100%;
+        background-color: #eee;
+        padding: 0.2em;
+        letter-spacing: -0.05em;
+        word-break: normal;
+        /*border-radius: 5px;*/
+    }
+    .helpers {
+        margin: 3rem;
+        padding: 3rem;
+        border: 1px solid silver;
+        display: inline-block;
+    }
+</style>
+<h2><?= __('The <a href="https://handlebarsjs.com/guide/" target="_blank">Handlebars</a> templating engine is used for designing the templates') ?></h2>
+<p>
+    <?= __('Handlebars is a simple templating language.') ?>
+    <?= __('It uses a template and an input object to generate HTML or other text formats. Handlebars templates look like regular text with embedded Handlebars expressions.') ?>
+</p>
+<div class="helpers">
+    <h3><?= __('List of available helpers (on top of the default handlebar helpers)') ?></h3>
+    <ul>
+        <?php foreach($block->getTemplateHelpers() as $templateHelper): ?>
+            <li><strong><?= $templateHelper ?></strong> - <code><?= __('{{#%1 variable}}', $templateHelper) ?></code></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<p>
+    <?= __('Apart from this, to debug the available variables in any template, you can write <code>{{#varDump this}}</code> to get the total list of available variables') ?>
+</p>
+<h2>
+    <?= __('For more information head over to <a href="https://handlebarsjs.com/guide/" target="_blank">https://handlebarsjs.com/guide/</a> to learn more about Handlebar') ?>
+</h2>

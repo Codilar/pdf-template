@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Model\Order\Pdf\Invoice">
+        <plugin name="pdf_template" type="Codilar\PdfTemplate\Plugin\Model\Order\Pdf\Invoice" />
+    </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Shipment">
+        <plugin name="pdf_template" type="Codilar\PdfTemplate\Plugin\Model\Order\Pdf\Shipment" />
+    </type>
+    <type name="Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="invoice" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\Invoice</item>
+                <item name="order" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\Order</item>
+                <item name="shipping_address" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\ShippingAddress</item>
+                <item name="billing_address" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\BillingAddress</item>
+                <item name="shipping" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\Shipping</item>
+                <item name="payment" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\Payment</item>
+                <item name="items" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Invoice\DataProvider\Items</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="shipment" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Shipment</item>
+                <item name="tracking" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Tracking</item>
+                <item name="order" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Order</item>
+                <item name="shipping_address" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\ShippingAddress</item>
+                <item name="billing_address" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\BillingAddress</item>
+                <item name="shipping" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Shipping</item>
+                <item name="payment" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Payment</item>
+                <item name="items" xsi:type="object">Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider\Items</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\PdfTemplate\Model\TemplateProcessor">
+        <arguments>
+            <argument name="templateHelpers" xsi:type="array">
+                <item name="varDump" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\VarDump</item>
+                <item name="currencyFormat" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CurrencyFormat</item>
+                <item name="numberFormat" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\NumberFormat</item>
+                <item name="storeConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\StoreConfig</item>
+                <item name="ifStoreConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\IfStoreConfig</item>
+                <item name="customVar" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CustomVariable</item>
+                <item name="customVarHTML" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CustomVariableHTML</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

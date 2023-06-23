@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_PdfTemplate::main" title="PDF Template" translate="title" module="Codilar_PdfTemplate" sortOrder="100" parent="Magento_Backend::content" resource="Codilar_PdfTemplate::main" />
+        <add id="Codilar_PdfTemplate::invoice_template" title="Invoice template" translate="title" module="Codilar_PdfTemplate" action="pdf_template/invoice" sortOrder="10" parent="Codilar_PdfTemplate::main" resource="Codilar_PdfTemplate::invoice_template" />
+        <add id="Codilar_PdfTemplate::shipment_template" title="Shipment template" translate="title" module="Codilar_PdfTemplate" action="pdf_template/shipment" sortOrder="20" parent="Codilar_PdfTemplate::main" resource="Codilar_PdfTemplate::shipment_template" />
+        <add id="Codilar_PdfTemplate::tutorial" title="Tutorial" translate="title" module="Codilar_PdfTemplate" action="pdf_template/tutorial" sortOrder="30" parent="Codilar_PdfTemplate::main" resource="Codilar_PdfTemplate::main" />
+    </menu>
+</config>

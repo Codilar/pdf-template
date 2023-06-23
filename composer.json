@@ -1,0 +1,26 @@
+{
+    "name": "codilar/pef-template",
+    "description": "A module for adding HTML PDF templates to Magento",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "1.0.0",
+    "require": {
+        "salesforce/handlebars-php": "^3.0",
+        "dompdf/dompdf": "^2.0"
+    },
+    "authors": [
+        {
+            "email": "joy@codilar.com",
+            "name": "Jayanka Ghosh"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Codilar\\PdfTemplate\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

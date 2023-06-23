@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales_pdf>
+            <invoice>
+                <pdf_template>0</pdf_template>
+            </invoice>
+            <shipment>
+                <pdf_template>0</pdf_template>
+            </shipment>
+        </sales_pdf>
+        <pdf_template>
+            <template>
+                <invoice><![CDATA[
+<div style="padding: 1px; line-height: 20px; font-size: 15px; font-family: 'Helvetica';">
+   {{#ifStoreConfig design/header/logo_src}}
+   <div class="logo" style="text-align: center">
+      <img src="{{#storeConfig base_media_url}}logo/{{#storeConfig design/header/logo_src}}" width="100" height="auto" alt="Logo" style="border: 1px solid white" />
+   </div>
+   {{/ifStoreConfig}}
+   <h2 style="text-align: center;margin-top: 1rem;">
+      INVOICE <strong>#{{invoice.increment_id}}</strong>
+      {{#ifStoreConfig sales_pdf/invoice/put_order_id}}
+      (order #{{order.increment_id}})
+      {{/ifStoreConfig}}
+   </h2>
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Sold to</th>
+         <th style="padding: 10px; background: #bbb">Ship to</th>
+      </tr>
+      <tr>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{billing_address.firstname}} {{billing_address.lastname}}<br>
+            {{billing_address.street}}<br>
+            {{billing_address.city}}, {{billing_address.region}}, {{billing_address.country_id}}<br>
+            Ph: {{billing_address.telephone}}<br>
+         </td>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{shipping_address.firstname}} {{shipping_address.lastname}}<br>
+            {{shipping_address.street}}<br>
+            {{shipping_address.city}}, {{shipping_address.region}}, {{shipping_address.country_id}}<br>
+            Ph: {{shipping_address.telephone}}<br>
+         </td>
+      </tr>
+   </table>
+   <br />
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Payment method</th>
+         <th style="padding: 10px; background: #bbb">Shipping method</th>
+      </tr>
+      <tr>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{payment.additional_information.method_title}}
+         </td>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{order.shipping_description}}<br>
+            Total shipping charges - {{#currencyFormat invoice.shipping_amount}}
+         </td>
+      </tr>
+   </table>
+   <br />
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Name</th>
+         <th style="padding: 10px; background: #bbb">Price</th>
+         <th style="padding: 10px; background: #bbb">Qty</th>
+         <th style="padding: 10px; background: #bbb">Tax</th>
+         <th style="padding: 10px; background: #bbb">Subtotal</th>
+      </tr>
+      {{#each items}}
+      <tr style="border-bottom: 2px solid #ccc">
+         <td style="padding: 2px 10px;">
+            <strong>{{this.name}}</strong> <span style="font-size:90%">({{this.sku}})</span><br>
+            {{#each this.additional_options}}
+            {{this.label}}: <strong>{{this.values}}</strong><br>
+            {{/each}}
+         </td>
+         <td style="padding: 2px 10px">
+            <p>{{#currencyFormat this.price this.invoice.getStoreCurrencyCode}}</p>
+         </td>
+         <td style="padding: 2px 10px">
+            <p>{{#numberFormat this.qty}}</p>
+         </td>
+         <td style="padding: 2px 10px">
+            <p>{{#currencyFormat this.tax_amount this.invoice.getStoreCurrencyCode}}</p>
+         </td>
+         <td style="padding: 2px 10px">
+            <p>{{#currencyFormat this.row_total this.invoice.getStoreCurrencyCode}}</p>
+         </td>
+      </tr>
+      {{/each}}
+   </table>
+   <table class="totals" style="margin: 20px; line-height: 20px;float: right; text-align: left">
+      <tr>
+         <th style="padding-right: 30px;text-align:left">Subtotal: </th>
+         <td style="text-align: right">{{#currencyFormat invoice.subtotal}} </td>
+      </tr>
+      <tr>
+         <th style="padding-right: 30px;text-align:left">GST: </th>
+         <td style="text-align: right">{{#currencyFormat invoice.tax_amount}}</td>
+      </tr>
+      <tr>
+         <th style="padding-right: 30px;text-align:left">Shipping & Handling: </th>
+         <td style="text-align: right">{{#currencyFormat invoice.shipping_amount}}</td>
+      </tr>
+      <tr>
+         <th style="padding-right: 30px;text-align:left">Grand total: </th>
+         <td style="text-align: right">{{#currencyFormat invoice.grand_total}}</td>
+      </tr>
+   </table>
+</div>
+                ]]></invoice>
+                <shipment><![CDATA[
+<div style="padding: 1px; line-height: 20px; font-size: 15px; font-family: 'Helvetica';">
+   {{#ifStoreConfig design/header/logo_src}}
+   <div class="logo" style="text-align: center">
+      <img src="{{#storeConfig base_media_url}}logo/{{#storeConfig design/header/logo_src}}" width="100" height="auto" alt="Logo" style="border: 1px solid white" />
+   </div>
+   {{/ifStoreConfig}}
+   <h2 style="text-align: center;margin-top: 1rem;">
+      SHIPMENT <strong>#{{shipment.increment_id}}</strong>
+      {{#if shipment.increment_id 000000003}}
+      yes
+      {{/if}}
+      {{#ifStoreConfig sales_pdf/shipment/put_order_id}}
+      (order #{{order.increment_id}})
+      {{/ifStoreConfig}}
+   </h2>
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Sold to</th>
+         <th style="padding: 10px; background: #bbb">Ship to</th>
+      </tr>
+      <tr>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{billing_address.firstname}} {{billing_address.lastname}}<br>
+            {{billing_address.street}}<br>
+            {{billing_address.city}}, {{billing_address.region}}, {{billing_address.country_id}}<br>
+            Ph: {{billing_address.telephone}}<br>
+         </td>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{shipping_address.firstname}} {{shipping_address.lastname}}<br>
+            {{shipping_address.street}}<br>
+            {{shipping_address.city}}, {{shipping_address.region}}, {{shipping_address.country_id}}<br>
+            Ph: {{shipping_address.telephone}}<br>
+         </td>
+      </tr>
+   </table>
+   <br />
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Payment method</th>
+         <th style="padding: 10px; background: #bbb">Shipping method</th>
+      </tr>
+      <tr>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{payment.additional_information.method_title}}
+         </td>
+         <td style="padding: 5px; background: #f0f0f0">
+            {{order.shipping_description}}<br>
+            Total shipping charges - {{#currencyFormat order.shipping_amount}}<br>
+            {{#if tracking}}
+            <br><u>Tracking numbers</u>
+            {{#each tracking}}
+            <br>{{this.getTitle}}: <strong>{{this.getTrackNumber}}</strong>
+            {{/each}}
+            {{/if}}
+         </td>
+      </tr>
+   </table>
+   <br />
+   <table style="width: 100%; text-align: left; border: 1px solid #bbb">
+      <tr>
+         <th style="padding: 10px; background: #bbb">Name</th>
+         <th style="padding: 10px; background: #bbb">Qty</th>
+      </tr>
+      {{#each items}}
+      <tr style="border-bottom: 2px solid #ccc">
+         <td style="padding: 2px 10px;">
+            <strong>{{this.name}}</strong> <span style="font-size:90%">({{this.sku}})</span><br>
+            {{#each this.additional_options}}
+            {{this.label}}: <strong>{{this.values}}</strong><br>
+            {{/each}}
+         </td>
+         <td style="padding: 2px 10px">
+            <p>{{#numberFormat this.qty}}</p>
+         </td>
+      </tr>
+      {{/each}}
+   </table>
+</div>
+                ]]></shipment>
+            </template>
+        </pdf_template>
+    </default>
+</config>
