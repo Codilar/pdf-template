@@ -1,5 +1,5 @@
 {
-    "name": "codilar/pef-template",
+    "name": "codilar/pdf-template",
     "description": "A module for adding HTML PDF templates to Magento",
     "type": "magento2-module",
     "license": "proprietary",
