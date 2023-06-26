@@ -39,7 +39,7 @@ class CmsBlock implements RendererInterface
         try {
             $block = $this->blockRepository->getById($value);
             return $this->widgetFilter->filter($block->getContent());
-        } catch (\Exception) {
+        } catch (\Exception $e) {
             return '';
         }
     }
