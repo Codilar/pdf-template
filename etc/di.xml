@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Codilar\PdfTemplate\Model\TemplateProcessor\RendererInterface"
+                type="Codilar\PdfTemplate\Model\TemplateProcessor\Render" />
     <type name="Magento\Sales\Model\Order\Pdf\Invoice">
         <plugin name="pdf_template" type="Codilar\PdfTemplate\Plugin\Model\Order\Pdf\Invoice" />
     </type>
@@ -37,12 +39,25 @@
         <arguments>
             <argument name="templateHelpers" xsi:type="array">
                 <item name="varDump" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\VarDump</item>
+                <item name="if" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\IfElse</item>
                 <item name="currencyFormat" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CurrencyFormat</item>
                 <item name="numberFormat" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\NumberFormat</item>
                 <item name="storeConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\StoreConfig</item>
                 <item name="ifStoreConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\IfStoreConfig</item>
                 <item name="customVar" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CustomVariable</item>
                 <item name="customVarHTML" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\CustomVariableHTML</item>
+                <item name="numberToWords" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\NumberToWords</item>
+                <item name="render" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Render</item>
+                <item name="compare" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Compare</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\PdfTemplate\Model\TemplateProcessor\RendererInterface">
+        <arguments>
+            <argument name="renderers" xsi:type="array">
+                <item name="storeConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\StoreConfig</item>
+                <item name="__" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\I18n</item>
+                <item name="cmsBlock" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\CmsBlock</item>
             </argument>
         </arguments>
     </type>

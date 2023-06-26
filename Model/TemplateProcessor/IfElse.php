@@ -1,23 +1,27 @@
 <?php
 
-
 namespace Codilar\PdfTemplate\Model\TemplateProcessor;
 
-use Symfony\Component\VarDumper\VarDumper;
 use Handlebars\Context;
 use Handlebars\Template;
+use Handlebars\Helpers;
+use Magento\Framework\Exception\LocalizedException;
 
-class VarDump implements TemplateHelperInterface
+class IfElse implements TemplateHelperInterface
 {
+    private Helpers $handlebarHelpers;
     private RendererInterface $renderer;
 
     /**
+     * @param Helpers $handlebarHelpers
      * @param RendererInterface $renderer
      */
     public function __construct(
+        Helpers $handlebarHelpers,
         RendererInterface $renderer
     )
     {
+        $this->handlebarHelpers = $handlebarHelpers;
         $this->renderer = $renderer;
     }
 
@@ -26,16 +30,7 @@ class VarDump implements TemplateHelperInterface
      */
     public function execute(Template $template, Context $context, $args, $source)
     {
-        ob_start();
-        $args = explode(' ', $args);
-        foreach ($args as $arg) {
-            $arg = $this->renderer->render($arg, $context);
-            if (class_exists(VarDumper::class)) {
-                VarDumper::dump($arg);
-            } else {
-                var_dump($arg);
-            }
-        }
-        return ob_get_clean();
+        $value = $this->renderer->render($args, $context, false);
+        return $this->handlebarHelpers->helperIf($template, $context, $value ? 'this': '', $source);
     }
 }

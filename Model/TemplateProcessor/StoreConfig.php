@@ -49,10 +49,7 @@ class StoreConfig implements TemplateHelperInterface
      */
     public function execute(Template $template, Context $context, $args, $source)
     {
-        /** @var DataObject $model */
-        $model = $context->get('model');
-        $storeId = $model->getData('store_id');
-        $store = $this->storeManager->getStore($storeId);
+        $store = $this->storeManager->getStore();
         $storeConfigData = $this->storeConfigDataProvider->getStoreConfigData($store);
         $path = $this->replaceQuotes($args);
         if (array_key_exists($path, $storeConfigData)) {

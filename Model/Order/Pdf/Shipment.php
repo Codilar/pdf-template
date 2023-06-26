@@ -8,6 +8,7 @@ use Codilar\PdfTemplate\Model\Order\Pdf\Shipment\DataProvider;
 use Codilar\PdfTemplate\Model\TemplateProcessor;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Shipment extends \Zend_Pdf
 {
@@ -23,20 +24,23 @@ class Shipment extends \Zend_Pdf
      * @var TemplateProcessor
      */
     private $templateProcessor;
+    private StoreManagerInterface $storeManager;
 
     /**
      * Invoice constructor.
      * @param DataProvider $dataProvider
      * @param TemplateProcessor $templateProcessor
+     * @param StoreManagerInterface $storeManager
      * @param array $shipments
-     * @param string|null $source
-     * @param integer|null $revision
+     * @param null $source
+     * @param null $revision
      * @param bool $load
      * @throws \Zend_Pdf_Exception
      */
     public function __construct(
         DataProvider $dataProvider,
         TemplateProcessor $templateProcessor,
+        StoreManagerInterface $storeManager,
         array $shipments = [],
         $source = null,
         $revision = null,
@@ -47,12 +51,14 @@ class Shipment extends \Zend_Pdf
         $this->shipments = $shipments;
         $this->dataProvider = $dataProvider;
         $this->templateProcessor = $templateProcessor;
+        $this->storeManager = $storeManager;
     }
 
     public function render($newSegmentOnly = false, $outputStream = null)
     {
         $pages = [];
         foreach ($this->shipments as $shipment) {
+            $this->storeManager->setCurrentStore($shipment->getStoreId());
             $data = [
                 'model' => $shipment
             ];

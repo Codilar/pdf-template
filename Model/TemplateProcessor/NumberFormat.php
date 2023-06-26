@@ -16,14 +16,25 @@ class NumberFormat implements TemplateHelperInterface
 {
 
     const DEFAULT_PRECISION = 2;
+    private RendererInterface $renderer;
+
+    /**
+     * @param RendererInterface $renderer
+     */
+    public function __construct(
+        RendererInterface $renderer
+    )
+    {
+        $this->renderer = $renderer;
+    }
 
     public function execute(Template $template, Context $context, $args, $source)
     {
         @list($number, $precision) = explode(' ', $args);
-        $number = $context->get($number) ?: $number;
+        $number = $this->renderer->render($number, $context);
         if ($precision) {
             $precision = $this->replaceQuotes($precision);
-            $precision = $context->get($precision) ?: $precision;
+            $precision = $this->renderer->render($precision, $context);
         } else {
             $precision = self::DEFAULT_PRECISION;
         }

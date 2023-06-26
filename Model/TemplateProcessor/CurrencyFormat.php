@@ -14,16 +14,21 @@ class CurrencyFormat extends NumberFormat implements TemplateHelperInterface
      * @var StoreManagerInterface
      */
     private $storeManager;
+    private RendererInterface $renderer;
 
     /**
      * CurrencyFormat constructor.
      * @param StoreManagerInterface $storeManager
+     * @param RendererInterface $renderer
      */
     public function __construct(
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        RendererInterface $renderer
     )
     {
         $this->storeManager = $storeManager;
+        $this->renderer = $renderer;
+        parent::__construct($renderer);
     }
 
     /**
@@ -31,24 +36,17 @@ class CurrencyFormat extends NumberFormat implements TemplateHelperInterface
      */
     public function execute(\Handlebars\Template $template, \Handlebars\Context $context, $args, $source)
     {
-        /** @var DataObject $model */
-        $model = $context->get('model');
-        if ($model) {
-            $storeId = $model->getData('store_id');
-        } else {
-            $storeId = 0;
-        }
         /** @var \Magento\Store\Model\Store $store */
-        $store = $this->storeManager->getStore($storeId);
+        $store = $this->storeManager->getStore();
         @list($amount, $currencyCode) = explode(' ', $args);
         if (!$currencyCode) {
             $currencyCode = $store->getCurrentCurrency()->getCurrencySymbol();
         } else {
-            $currencyCode = $context->get($currencyCode) ?: $currencyCode;
+            $currencyCode = $this->renderer->render($currencyCode, $context) ?: $currencyCode;
             $currencyCode = $store->getCurrentCurrency()->load($currencyCode)->getCurrencySymbol();
         }
-        $amount = $context->get($amount) ?: $amount;
-        $currencyCode = $context->get($currencyCode) ?: $currencyCode;
+        $amount = $this->renderer->render($amount, $context);
+        $currencyCode = $this->renderer->render($currencyCode, $context);
         $amount = parent::execute($template, $context, $amount, $source);
         return sprintf('%s%s', $currencyCode, $amount);
     }

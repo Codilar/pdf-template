@@ -28,7 +28,14 @@
     <h3><?= __('List of available helpers (on top of the default handlebar helpers)') ?></h3>
     <ul>
         <?php foreach($block->getTemplateHelpers() as $templateHelper): ?>
-            <li><strong><?= $templateHelper ?></strong> - <code><?= __('{{#%1 variable}}', $templateHelper) ?></code></li>
+            <li>
+                <strong><?= $templateHelper ?></strong> -
+                <?php if ($templateHelper === 'compare'): ?>
+                    <code><?= __('{{#%1 var1 operation var2}}', $templateHelper) ?></code>
+                <?php else: ?>
+                    <code><?= __('{{#%1 variable}}', $templateHelper) ?></code>
+                <?php endif; ?>
+            </li>
         <?php endforeach; ?>
     </ul>
 </div>
