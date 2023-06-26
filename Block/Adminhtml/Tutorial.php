@@ -9,7 +9,10 @@ use Magento\Framework\Json\Helper\Data as JsonHelper;
 
 class Tutorial extends \Magento\Backend\Block\Template
 {
-    private TemplateProcessor $templateProcessor;
+    /**
+     * @var TemplateProcessor
+     */
+    private $templateProcessor;
 
     /**
      * @param Context $context

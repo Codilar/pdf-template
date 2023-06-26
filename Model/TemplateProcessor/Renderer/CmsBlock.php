@@ -9,8 +9,14 @@ use Magento\Widget\Model\Template\FilterEmulate as WidgetFilter;
 
 class CmsBlock implements RendererInterface
 {
-    private BlockRepositoryInterface $blockRepository;
-    private WidgetFilter $widgetFilter;
+    /**
+     * @var BlockRepositoryInterface
+     */
+    private $blockRepository;
+    /**
+     * @var WidgetFilter
+     */
+    private $widgetFilter;
 
     /**
      * @param BlockRepositoryInterface $blockRepository
@@ -25,7 +31,10 @@ class CmsBlock implements RendererInterface
         $this->widgetFilter = $widgetFilter;
     }
 
-    public function render(string $value, Context $context): string
+    /**
+     * @inheirtDoc
+     */
+    public function render(string $value, Context $context)
     {
         try {
             $block = $this->blockRepository->getById($value);

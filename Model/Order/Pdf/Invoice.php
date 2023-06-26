@@ -24,7 +24,10 @@ class Invoice extends \Zend_Pdf
      * @var TemplateProcessor
      */
     private $templateProcessor;
-    private StoreManagerInterface $storeManager;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
 
     /**
      * Invoice constructor.

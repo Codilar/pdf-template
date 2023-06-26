@@ -12,7 +12,10 @@ use Magento\Variable\Model\Variable;
 
 class CustomVariable implements TemplateHelperInterface
 {
-    private Variable $variable;
+    /**
+     * @var Variable
+     */
+    private $variable;
 
     /**
      * @param Variable $variable

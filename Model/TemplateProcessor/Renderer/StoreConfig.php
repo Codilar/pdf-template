@@ -9,7 +9,10 @@ use Magento\Store\Model\ScopeInterface;
 
 class StoreConfig implements RendererInterface
 {
-    private ScopeConfigInterface $scopeConfig;
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -21,7 +24,10 @@ class StoreConfig implements RendererInterface
         $this->scopeConfig = $scopeConfig;
     }
 
-    public function render(string $value, Context $context): string
+    /**
+     * @inheirtDoc
+     */
+    public function render(string $value, Context $context)
     {
         if ($value) {
             return (string)$this->scopeConfig->getValue($value, ScopeInterface::SCOPE_STORE);

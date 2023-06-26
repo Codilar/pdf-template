@@ -10,7 +10,7 @@ class Render implements TemplateHelperInterface, RendererInterface
     /**
      * @var RendererInterface[]
      */
-    private array $renderers;
+    private $renderers;
 
     /**
      * @param RendererInterface[] $renderers
@@ -30,7 +30,10 @@ class Render implements TemplateHelperInterface, RendererInterface
         return $this->render($args, $context);
     }
 
-    public function render(string $value, Context $context, $graceful = true): string
+    /**
+     * @inheirtDoc
+     */
+    public function render(string $value, Context $context, $graceful = true)
     {
         $rendererRegex = '/\$(.+?)\((.*?)\)/';
         if (preg_match($rendererRegex, $value, $matches)) {

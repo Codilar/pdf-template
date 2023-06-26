@@ -10,7 +10,11 @@ class NumberToWords implements TemplateHelperInterface
 
     const FORMAT_WESTERN = 'western';
     const FORMAT_INDIAN = 'indian';
-    private RendererInterface $renderer;
+
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * @param RendererInterface $renderer

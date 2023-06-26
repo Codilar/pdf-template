@@ -17,8 +17,14 @@ class Compare implements TemplateHelperInterface
     const OPERATION_LT = 'lt';
     const OPERATION_LTEQ = 'lteq';
 
-    private Helpers $handlebarHelpers;
-    private RendererInterface $renderer;
+    /**
+     * @var Helpers
+     */
+    private $handlebarHelpers;
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * @param Helpers $handlebarHelpers

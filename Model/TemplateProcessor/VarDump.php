@@ -9,7 +9,10 @@ use Handlebars\Template;
 
 class VarDump implements TemplateHelperInterface
 {
-    private RendererInterface $renderer;
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * @param RendererInterface $renderer

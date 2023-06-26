@@ -7,8 +7,10 @@ use Handlebars\Context;
 
 class I18n implements RendererInterface
 {
-
-    public function render(string $value, Context $context): string
+    /**
+     * @inheirtDoc
+     */
+    public function render(string $value, Context $context)
     {
         return __($value);
     }

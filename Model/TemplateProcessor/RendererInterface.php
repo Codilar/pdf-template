@@ -6,5 +6,10 @@ use Handlebars\Context;
 
 interface RendererInterface
 {
-    public function render(string $value, Context $context): string;
+    /**
+     * @param string $value
+     * @param Context $context
+     * @return mixed
+     */
+    public function render(string $value, Context $context);
 }

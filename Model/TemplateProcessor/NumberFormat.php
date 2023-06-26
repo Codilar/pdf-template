@@ -16,7 +16,10 @@ class NumberFormat implements TemplateHelperInterface
 {
 
     const DEFAULT_PRECISION = 2;
-    private RendererInterface $renderer;
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * @param RendererInterface $renderer

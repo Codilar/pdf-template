@@ -9,8 +9,14 @@ use Magento\Framework\Exception\LocalizedException;
 
 class IfElse implements TemplateHelperInterface
 {
-    private Helpers $handlebarHelpers;
-    private RendererInterface $renderer;
+    /**
+     * @var Helpers
+     */
+    private $handlebarHelpers;
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * @param Helpers $handlebarHelpers

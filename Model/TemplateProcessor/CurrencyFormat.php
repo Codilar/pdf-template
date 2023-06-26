@@ -14,7 +14,10 @@ class CurrencyFormat extends NumberFormat implements TemplateHelperInterface
      * @var StoreManagerInterface
      */
     private $storeManager;
-    private RendererInterface $renderer;
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
 
     /**
      * CurrencyFormat constructor.
