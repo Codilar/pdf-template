@@ -5,7 +5,11 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block name="tutorial" class="Codilar\PdfTemplate\Block\Adminhtml\Tutorial" template="Codilar_PdfTemplate::tutorial.phtml" />
+            <block name="tutorial" class="Magento\Backend\Block\Template" template="Codilar_PdfTemplate::tutorial.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Codilar\PdfTemplate\Model\Tutorial\ViewModel</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

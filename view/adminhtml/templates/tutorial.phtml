@@ -1,5 +1,6 @@
 <?php
-/** @var \Codilar\PdfTemplate\Block\Adminhtml\Tutorial $block */
+/** @var \Codilar\PdfTemplate\Model\Tutorial\ViewModel $viewModel */
+$viewModel = $block->getData('view_model');
 ?>
 <style>
     code {
@@ -27,7 +28,7 @@
 <div class="helpers">
     <h3><?= __('List of available helpers (on top of the default handlebar helpers)') ?></h3>
     <ul>
-        <?php foreach($block->getTemplateHelpers() as $templateHelper): ?>
+        <?php foreach($viewModel->getTemplateHelpers() as $templateHelper): ?>
             <li>
                 <strong><?= $templateHelper ?></strong> -
                 <?php if ($templateHelper === 'compare'): ?>
