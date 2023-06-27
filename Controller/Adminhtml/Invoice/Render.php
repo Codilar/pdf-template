@@ -49,7 +49,8 @@ class Render extends Action implements CsrfAwareActionInterface
         /** @var Json $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         $rawHtml = $this->getRequest()->getParam('raw');
-        $mockData = $this->invoiceMock->getData();
+        $mockModelId = $this->getRequest()->getParam('mock_model_id');
+        $mockData = $this->invoiceMock->getData($mockModelId);
         $response->setData([
             'rendered_html' => $this->templateProcessor->render($rawHtml, $mockData)
         ]);

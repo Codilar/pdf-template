@@ -52,6 +52,7 @@
 <script type="application/javascript">
     require(['jquery'], function ($) {
         var preview = $('.pdf_template-template-container .preview');
+        var mockModelId = $('#pdf_template-template-engine input[name="mock_model_id"]');
         var textarea = $('.pdf_template-template-container .template textarea');
         var availableWidth = $('.pdf_template-template-container .preview-container').width();
         availableWidth = availableWidth * 2/3;
@@ -61,7 +62,7 @@
         });
 
         var updater = null;
-        textarea.on('keyup', function () {
+        var updatePreview = function () {
             if (updater) {
                 clearTimeout(updater);
             }
@@ -71,7 +72,8 @@
                     url: "<?= $block->getUrl('*/*/render') ?>",
                     method: "POST",
                     data: {
-                        raw: textarea.val()
+                        raw: textarea.val(),
+                        mock_model_id: mockModelId.val()
                     },
                     success: function (response) {
                         preview.html(response.rendered_html);
@@ -81,12 +83,16 @@
                     }
                 })
             }, 1000);
-        });
+        }
+        mockModelId.on('keyup', updatePreview);
+        textarea.on('keyup', updatePreview);
         textarea.trigger('keyup');
     });
 </script>
 <form method="POST" action="<?= $block->getSubmitUrl() ?>" id="pdf_template-template-engine">
     <div class="actions">
+        <span><strong><?= __('Mock model ID: ') ?></strong></span>
+        <input class="admin__control-text" type="text" placeholder="Mock model ID" name="mock_model_id" value="<?= $block->getDefaultMockModelId() ?>" />
         <?= $block->getScopeControl() ?>
         <button type="submit" class="button action-default primary save"><?= __('Save Template') ?></button>
     </div>

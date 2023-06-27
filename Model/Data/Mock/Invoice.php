@@ -32,12 +32,14 @@ class Invoice
     }
 
     /**
+     * @param string $mockModelId
      * @return array
      */
-    public function getData()
+    public function getData(string $mockModelId)
     {
         /** @var \Magento\Sales\Model\Order\Invoice $invoice */
-        $invoice = $this->collectionFactory->create()->getFirstItem();
+        $invoice = $this->collectionFactory->create()
+            ->addFieldToFilter('increment_id', $mockModelId)->getFirstItem();
 
         if (!$invoice->getId()) {
             return new AbstractMock();

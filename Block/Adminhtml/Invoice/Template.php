@@ -51,6 +51,11 @@ class Template extends \Magento\Backend\Block\Template
         return $this->getUrl('*/*/save', ['store' => $this->getRequest()->getParam('store')]);
     }
 
+    public function getDefaultMockModelId(): string
+    {
+        return '000000001';
+    }
+
     /**
      * @return string
      */
