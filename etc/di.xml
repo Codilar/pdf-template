@@ -49,6 +49,8 @@
                 <item name="numberToWords" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\NumberToWords</item>
                 <item name="render" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Render</item>
                 <item name="compare" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Compare</item>
+                <item name="math" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Math</item>
+                <item name="setData" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\SetData</item>
             </argument>
         </arguments>
     </type>
@@ -58,6 +60,7 @@
                 <item name="storeConfig" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\StoreConfig</item>
                 <item name="__" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\I18n</item>
                 <item name="cmsBlock" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\CmsBlock</item>
+                <item name="getData" xsi:type="object">Codilar\PdfTemplate\Model\TemplateProcessor\Renderer\GetData</item>
             </argument>
         </arguments>
     </type>

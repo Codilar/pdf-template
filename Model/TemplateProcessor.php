@@ -3,7 +3,10 @@
 
 namespace Codilar\PdfTemplate\Model;
 
+use Codilar\PdfTemplate\Model\Data\Storage;
+use Handlebars\Context;
 use Handlebars\Handlebars;
+use Handlebars\Template;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface as StoreConfigWriter;
@@ -31,18 +34,24 @@ class TemplateProcessor
      * @var TemplateHelperInterface[]
      */
     private $templateHelpers;
+    /**
+     * @var Storage
+     */
+    private $storage;
 
     /**
      * TemplateRenderer constructor.
      * @param ScopeConfigInterface $scopeConfig
      * @param StoreConfigWriter $storeConfigWriter
      * @param TypeListInterface $typeList
+     * @param Storage $storage
      * @param array $templateHelpers
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         StoreConfigWriter $storeConfigWriter,
         TypeListInterface $typeList,
+        Storage $storage,
         array $templateHelpers = []
     )
     {
@@ -50,6 +59,7 @@ class TemplateProcessor
         $this->storeConfigWriter = $storeConfigWriter;
         $this->typeList = $typeList;
         $this->templateHelpers = $templateHelpers;
+        $this->storage = $storage;
     }
 
     /**
@@ -112,12 +122,23 @@ class TemplateProcessor
                 'enableDataVariables' => true
             ]);
             foreach ($this->templateHelpers as $key => $helper) {
-                $handlebar->addHelper($key, \Closure::fromCallable([$helper, 'execute']));
+                $handlebar->addHelper($key, function(Template $template, Context $context, $args, $source) use (
+                    $key,
+                    $helper) {
+                    return $this->processHelper($template, $context, $args, $source, $key, $helper);
+                });
             }
             return $handlebar->render($str, $data);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    protected function processHelper(Template $template, Context $context, $args, $source, string $key, TemplateHelperInterface $templateHelper)
+    {
+        $result = $templateHelper->execute($template, $context, $args, $source);
+        $this->storage->setData($key, $result);
+        return $result;
     }
 
     /**

@@ -33,6 +33,10 @@ $viewModel = $block->getData('view_model');
                 <strong><?= $templateHelper ?></strong> -
                 <?php if ($templateHelper === 'compare'): ?>
                     <code><?= __('{{#%1 var1 operation var2}}', $templateHelper) ?></code>
+                <?php elseif ($templateHelper === 'math'): ?>
+                    <code><?= __('{{#%1 operation val1 val2 val3 ...}}', $templateHelper) ?></code>
+                <?php elseif ($templateHelper === 'setData'): ?>
+                    <code><?= __('{{#%1 key value}}', $templateHelper) ?></code>
                 <?php else: ?>
                     <code><?= __('{{#%1 variable}}', $templateHelper) ?></code>
                 <?php endif; ?>

@@ -12,12 +12,13 @@
         <pdf_template>
             <template>
                 <invoice><![CDATA[
+{{#setData store_id this.model.getStoreId}}
 <div style="padding: 1px; line-height: 20px; font-size: 15px; font-family: 'Helvetica';">
-   {{#ifStoreConfig design/header/logo_src}}
+   {{#if $storeConfig('design/header/logo_src')}}
    <div class="logo" style="text-align: center">
-      <img src="{{#storeConfig base_media_url}}logo/{{#storeConfig design/header/logo_src}}" width="100" height="auto" alt="Logo" style="border: 1px solid white" />
+      <img src="{{#storeConfig base_media_url}}logo/{{#render $storeConfig('design/header/logo_src')}}" width="100" height="auto" alt="Logo" style="border: 1px solid white" />
    </div>
-   {{/ifStoreConfig}}
+   {{/if}}
    <h2 style="text-align: center;margin-top: 1rem;">
       INVOICE <strong>#{{invoice.increment_id}}</strong>
       {{#ifStoreConfig sales_pdf/invoice/put_order_id}}
@@ -78,16 +79,16 @@
             {{/each}}
          </td>
          <td style="padding: 2px 10px">
-            <p>{{#currencyFormat this.price this.invoice.getStoreCurrencyCode}}</p>
+            <p>{{#currencyFormat this.price $getData('store_id')}}</p>
          </td>
          <td style="padding: 2px 10px">
             <p>{{#numberFormat this.qty}}</p>
          </td>
          <td style="padding: 2px 10px">
-            <p>{{#currencyFormat this.tax_amount this.invoice.getStoreCurrencyCode}}</p>
+            <p>{{#currencyFormat this.tax_amount $getData('store_id')}}</p>
          </td>
          <td style="padding: 2px 10px">
-            <p>{{#currencyFormat this.row_total this.invoice.getStoreCurrencyCode}}</p>
+            <p>{{#currencyFormat this.row_total $getData('store_id')}}</p>
          </td>
       </tr>
       {{/each}}
