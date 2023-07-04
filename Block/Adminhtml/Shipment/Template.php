@@ -9,24 +9,10 @@ use Codilar\PdfTemplate\Model\TemplateProcessor;
 
 class Template extends \Codilar\PdfTemplate\Block\Adminhtml\Invoice\Template
 {
-    /**
-     * @return string
-     */
-    public function getScopeControl(): string
-    {
-        try {
-            return $this->getLayout()->createBlock(\Magento\Backend\Block\Store\Switcher::class, 'store_switcher')->toHtml();
-        } catch (LocalizedException $e) {
-            return '';
-        }
-    }
 
-    /**
-     * @return string
-     */
-    public function getSubmitUrl(): string
+    public function getDefaultMockModelId(): string
     {
-        return $this->getUrl('*/*/save', ['store' => $this->getRequest()->getParam('store')]);
+        return $this->_scopeConfig->getValue('sales_pdf/shipment/default_mock_model_id');
     }
 
     /**

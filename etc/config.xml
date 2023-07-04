@@ -4,9 +4,11 @@
         <sales_pdf>
             <invoice>
                 <pdf_template>0</pdf_template>
+                <default_mock_model_id>000000001</default_mock_model_id>
             </invoice>
             <shipment>
                 <pdf_template>0</pdf_template>
+                <default_mock_model_id>000000001</default_mock_model_id>
             </shipment>
         </sales_pdf>
         <pdf_template>

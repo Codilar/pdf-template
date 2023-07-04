@@ -4,15 +4,27 @@
         <section id="sales_pdf">
             <resource>Codilar_PdfTemplate::main</resource>
             <group id="invoice">
-                <field id="pdf_template" translate="label" type="select" sortOrder="1" showInDefault="1" canRestore="1">
+                <field id="pdf_template" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="1">
                     <label>Use HTML PDF template</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="default_mock_model_id" translate="label" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Default Mock Model ID</label>
+                    <depends>
+                        <field id="pdf_template">1</field>
+                    </depends>
+                </field>
             </group>
             <group id="shipment">
-                <field id="pdf_template" translate="label" type="select" sortOrder="1" showInDefault="1" canRestore="1">
+                <field id="pdf_template" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="1">
                     <label>Use HTML PDF template</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default_mock_model_id" translate="label" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Default Mock Model ID</label>
+                    <depends>
+                        <field id="pdf_template">1</field>
+                    </depends>
                 </field>
             </group>
         </section>

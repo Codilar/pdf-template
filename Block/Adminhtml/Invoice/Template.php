@@ -53,7 +53,7 @@ class Template extends \Magento\Backend\Block\Template
 
     public function getDefaultMockModelId(): string
     {
-        return '000000001';
+        return $this->_scopeConfig->getValue('sales_pdf/invoice/default_mock_model_id');
     }
 
     /**

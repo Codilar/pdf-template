@@ -4,7 +4,7 @@ namespace Codilar\PdfTemplate\Model\Data;
 
 class Storage
 {
-    private array $data;
+    private $data;
 
     /**
      * @param array $data

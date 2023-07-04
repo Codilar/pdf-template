@@ -12,7 +12,7 @@
         float: none;
         display: inline-block;
     }
-    #pdf_template-template-engine > .actions > .save {
+    #pdf_template-template-engine > .actions > .action-buttons {
         display: inline-block;
         position: absolute;
         right: 2rem;
@@ -55,6 +55,7 @@
         var mockModelId = $('#pdf_template-template-engine input[name="mock_model_id"]');
         var textarea = $('.pdf_template-template-container .template textarea');
         var availableWidth = $('.pdf_template-template-container .preview-container').width();
+        var downloadPdf = $('#pdf-template-download-pdf');
         availableWidth = availableWidth * 2/3;
         preview.css({
             width: availableWidth + 'px',
@@ -86,7 +87,17 @@
         }
         mockModelId.on('keyup', updatePreview);
         textarea.on('keyup', updatePreview);
-        textarea.trigger('keyup');
+        mockModelId.on('keyup', function () {
+            var url = '<?= $block->getUrl('*/*/downloadPdf') ?>?';
+            url += $.param({
+                store: '<?= $this->getRequest()->getParam('store') ?>',
+                id: mockModelId.val()
+            })
+            downloadPdf.attr('href', url);
+        });
+
+        mockModelId.trigger('keyup');
+
     });
 </script>
 <form method="POST" action="<?= $block->getSubmitUrl() ?>" id="pdf_template-template-engine">
@@ -94,7 +105,10 @@
         <span><strong><?= __('Mock model ID: ') ?></strong></span>
         <input class="admin__control-text" type="text" placeholder="Mock model ID" name="mock_model_id" value="<?= $block->getDefaultMockModelId() ?>" />
         <?= $block->getScopeControl() ?>
-        <button type="submit" class="button action-default primary save"><?= __('Save Template') ?></button>
+        <div class="action-buttons">
+            <button type="submit" class="button action-default primary save"><?= __('Save Template') ?></button>
+            <a class="abs-action-primary" href="" id="pdf-template-download-pdf"><?= __('Download PDF') ?></a>
+        </div>
     </div>
     <div class="pdf_template-template-container">
         <div class="template column">
