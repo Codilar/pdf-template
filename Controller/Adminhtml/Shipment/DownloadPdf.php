@@ -65,8 +65,12 @@ class DownloadPdf extends Action
             ]);
             return $this->fileFactory->create(
                 sprintf('shipment_%s.pdf', date('Y-m-d')),
-                $pdf->render(),
-                DirectoryList::ROOT,
+                [
+                    'type' => 'string',
+                    'value' => $pdf->render(),
+                    'rm' => true
+                ],
+                DirectoryList::VAR_DIR,
                 'application/pdf'
             );
         } catch (\Exception $exception) {
