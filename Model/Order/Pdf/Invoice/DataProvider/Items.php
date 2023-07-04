@@ -21,6 +21,7 @@ class Items implements DataProviderInterface
         foreach ($model->getAllItems() as $item) {
             if ($item->getOrderItem()->getParentItemId()) continue;
             $itemData = $item->getData();
+            $itemData['model'] = $item;
 
             $options = [];
             foreach ($this->getItemOptions($item) as $option) {
